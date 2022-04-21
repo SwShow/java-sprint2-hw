@@ -12,10 +12,10 @@ public class Main {
         String month1 = "январь";
         String month2 = "Февраль";
         String month3 = "Март";
-        String jan = readFileContents("resources/m.202101.csv");
-        String feb = readFileContents("resources/m.202102.csv");
-        String mar = readFileContents("resources/m.202103.csv");
-        String year = readFileContents("resources/y.2021.csv");
+        String[] jan = readFileContents("resources/m.202101.csv");
+        String[] feb = readFileContents("resources/m.202102.csv");
+        String[] mar = readFileContents("resources/m.202103.csv");
+        String[] year = readFileContents("resources/y.2021.csv");
 
         while (true) {
             printMenue();
@@ -53,10 +53,12 @@ public class Main {
         System.out.println("100 -  Завершить программу");
     }
 
-    private static String readFileContents(String filename){
+    private static String[] readFileContents(String filename) {
         Path filePath = Paths.get(filename);
         try {
-            return Files.readString(filePath);
+            String yearlyTable = Files.readString(filePath);
+            String[] globalReport = yearlyTable.split(System.lineSeparator());
+            return globalReport;
         } catch (IOException e) {
             System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно, файл не находится в нужной директории.");
             return null;
