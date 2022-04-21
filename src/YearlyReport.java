@@ -36,7 +36,7 @@ public class YearlyReport {
         ArrayList<Integer> ExpensesYear = getlistExpense(globalReport);
         ArrayList<Integer> IncomeYear = getlistIncome(globalReport);
 
-        int middleExpense = (ExpensesYear.get(0) +  ExpensesYear.get(1) + ExpensesYear.get(2)) / 3;
+        int middleExpense = (ExpensesYear.get(0) + ExpensesYear.get(1) + ExpensesYear.get(2)) / 3;
         int middleIncome = (IncomeYear.get(0) + IncomeYear.get(1) + IncomeYear.get(2)) / 3;
         System.out.println("Средний доход за 2021 год: " + middleIncome + " рублей");
         System.out.println("Средний расход за 2021 год: " + middleExpense + " рублей");
@@ -55,7 +55,7 @@ public class YearlyReport {
 
     public static ArrayList<Integer> getlistExpense(String[] globalReport) {
         ArrayList<Integer> listExpense = new ArrayList<>();
-        for (int i = 1; i < globalReport.length; i ++) {
+        for (int i = 1; i < globalReport.length; i++) {
             String[] report = globalReport[i].split(",");
             if (report[2].equals("true")) {
                 listExpense.add(Integer.parseInt(report[1]));
@@ -66,7 +66,7 @@ public class YearlyReport {
 
     public static ArrayList<Integer> getlistIncome(String[] globalReport) {
         ArrayList<Integer> listIncome = new ArrayList<>();
-        for (int i = 1; i < globalReport.length; i ++) {
+        for (int i = 1; i < globalReport.length; i++) {
             String[] report = globalReport[i].split(",");
             if (report[2].equals("false")) {
                 listIncome.add(Integer.parseInt(report[1]));

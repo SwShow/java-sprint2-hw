@@ -53,7 +53,7 @@ public class Main {
         System.out.println("100 -  Завершить программу");
     }
 
-    private static String readFileContents(String filename){
+    private static String readFileContents(String filename) {
         Path filePath = Paths.get(filename);
         try {
             return Files.readString(filePath);

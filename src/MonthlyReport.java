@@ -57,6 +57,7 @@ public class MonthlyReport {
         System.out.println("Самые большие расходы: " + expenseName + " - " + largeExpense);
         System.out.println("Самый прибыльный товар: " + profitName + " - " + largePrice + "\n");
     }
+
     public static void compareMonthAndYear(String yearlyTable, String jan, String feb, String mar) {
         String[] globalReport = yearlyTable.split(System.lineSeparator());
         String[] report = jan.split(System.lineSeparator());
@@ -148,17 +149,23 @@ public class MonthlyReport {
 
         if (janExpTot != listExpenseyear.get(0)) {
             System.out.println("Расходы в январе не совпадают.");
-        } if (febExpTot != listExpenseyear.get(1)) {
+        }
+        if (febExpTot != listExpenseyear.get(1)) {
             System.out.println("Расходы в феврале не совпадают.");
-        } if (marExpTot != listExpenseyear.get(2)) {
+        }
+        if (marExpTot != listExpenseyear.get(2)) {
             System.out.println("Расходы в марте не совпадают.");
-        } if (janIncTot != listIncome.get(0)) {
+        }
+        if (janIncTot != listIncome.get(0)) {
             System.out.println("Доходы в январе не совпадают.");
-        } if (febIncTot != listIncome.get(1)) {
+        }
+        if (febIncTot != listIncome.get(1)) {
             System.out.println("Доходы в феврале не совпадают.");
-        } if (marIncTot != listIncome.get(2)) {
+        }
+        if (marIncTot != listIncome.get(2)) {
             System.out.println("Доходы в марте не совпадают.");
-        } System.out.println("Операция успешно завершена.");
+        }
+        System.out.println("Операция успешно завершена.");
 
     }
 }
