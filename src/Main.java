@@ -56,8 +56,9 @@ public class Main {
     private static String[] readFileContents(String filename) {
         Path filePath = Paths.get(filename);
         try {
-            String yearlyTable = Files.readString(filePath);
+            String yearlyTable =  Files.readString(filePath);
             String[] globalReport = yearlyTable.split(System.lineSeparator());
+
             return globalReport;
         } catch (IOException e) {
             System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно, файл не находится в нужной директории.");
@@ -65,4 +66,3 @@ public class Main {
         }
     }
 }
-
