@@ -1,7 +1,42 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MonthlyReport {
+    String[] year;
+    String[] mar;
+    String[] feb;
+    String[] jan;
+    String name1;
+    String name2;
+    String name3;
+
+
+    public MonthlyReport() {
+
+        name1 = "Январь";
+        name2 = "Февраль";
+        name3 = "Март";
+        jan = readFileContents("resources/m.202101.csv");
+        feb = readFileContents("resources/m.202102.csv");
+        mar = readFileContents("resources/m.202103.csv");
+        year = readFileContents("resources/y.2021.csv");
+    }
+
+    static String[] readFileContents(String filename) {
+        Path filePath = Paths.get(filename);
+        try {
+            String yearlyTable =  Files.readString(filePath);
+            String[] globalReport = yearlyTable.split(System.lineSeparator());
+
+            return globalReport;
+        } catch (IOException e) {
+            System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно, файл не находится в нужной директории.");
+            return null;
+        }
+    }
 
     static void readMonthlyReport(String[] monthlyTable, String month) {
         System.out.println("Отчет за " + month);

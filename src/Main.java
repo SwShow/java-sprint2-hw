@@ -1,7 +1,4 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.Scanner;
 
 public class Main {
@@ -9,31 +6,25 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String month1 = "январь";
-        String month2 = "Февраль";
-        String month3 = "Март";
-        String[] jan = readFileContents("resources/m.202101.csv");
-        String[] feb = readFileContents("resources/m.202102.csv");
-        String[] mar = readFileContents("resources/m.202103.csv");
-        String[] year = readFileContents("resources/y.2021.csv");
+       MonthlyReport monthlyReport = new MonthlyReport();
 
         while (true) {
             printMenue();
             int command = scanner.nextInt();
             if (command == 1) {
-                MonthlyReport.readMonthlyReport(jan, month1);
-                MonthlyReport.readMonthlyReport(feb, month2);
-                MonthlyReport.readMonthlyReport(mar, month3);
+                MonthlyReport.readMonthlyReport(monthlyReport.jan, monthlyReport.name1);
+                MonthlyReport.readMonthlyReport(monthlyReport.feb, monthlyReport.name2);
+                MonthlyReport.readMonthlyReport(monthlyReport.mar, monthlyReport.name3);
             } else if (command == 2) {
-                YearlyReport.readYearlyReport(year);
+                YearlyReport.readYearlyReport(monthlyReport.year);
             } else if (command == 3) {
-                MonthlyReport.compareMonthAndYear(year, jan, feb, mar);
+                MonthlyReport.compareMonthAndYear(monthlyReport.year, monthlyReport.jan, monthlyReport.feb, monthlyReport.mar);
             } else if (command == 4) {
-                MonthlyReport.getMonthlyReport(jan, month1);
-                MonthlyReport.getMonthlyReport(feb, month2);
-                MonthlyReport.getMonthlyReport(mar, month3);
+                MonthlyReport.getMonthlyReport(monthlyReport.jan, monthlyReport.name1);
+                MonthlyReport.getMonthlyReport(monthlyReport.feb, monthlyReport.name2);
+                MonthlyReport.getMonthlyReport(monthlyReport.mar, monthlyReport.name3);
             } else if (command == 5) {
-                YearlyReport.infoYear(year);
+                YearlyReport.infoYear(monthlyReport.year);
             } else if (command == 100) {
                 System.out.println("Выход");
                 break;
@@ -53,16 +44,5 @@ public class Main {
         System.out.println("100 -  Завершить программу");
     }
 
-    private static String[] readFileContents(String filename) {
-        Path filePath = Paths.get(filename);
-        try {
-            String yearlyTable =  Files.readString(filePath);
-            String[] globalReport = yearlyTable.split(System.lineSeparator());
 
-            return globalReport;
-        } catch (IOException e) {
-            System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно, файл не находится в нужной директории.");
-            return null;
-        }
-    }
 }
