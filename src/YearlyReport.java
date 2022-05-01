@@ -2,54 +2,175 @@ import java.util.ArrayList;
 
 public class YearlyReport {
 
+    String[] year;
 
-    static void infoYear(String[] yearlyTable) {
-        System.out.println("Информация по 2021 году");
+    public YearlyReport() {
 
-
-        String[] reports1 = yearlyTable[1].split(",");
-        int expense1 = getBalance(reports1);
-        System.out.println("Доход/расход за январь: " + expense1);
-        String[] reports2 = yearlyTable[2].split(",");
-        int expense2 = getBalance(reports2);
-        int balance1 = expense1 + expense2;
-        System.out.println("Доход/расход за январь: " + expense2 + "\n" + "Прибыль января: " + balance1 + " рублей");
-
-
-        String[] reports3 = yearlyTable[3].split(",");
-        int expense3 = getBalance(reports3);
-        System.out.println("Доход/расход за февраль: " + expense3);
-        String[] reports4 = yearlyTable[4].split(",");
-        int expense4 = getBalance(reports4);
-        int balance2 = expense3 + expense4;
-        System.out.println("Доход/расход за февраль: " + expense4 + "\n" + "Прибыль февраля: " + balance2 + " рублей");
-
-        String[] reports5 = yearlyTable[5].split(",");
-        int expense5 = getBalance(reports5);
-        System.out.println("Доход/расход за март: " + expense5);
-        String[] reports6 = yearlyTable[6].split(",");
-        int expense6 = getBalance(reports6);
-        int balance3 = expense5 + expense6;
-        System.out.println("Доход/расход за март: " + expense6 + "\n" + "Прибыль марта: " + balance3 + " рублей");
-
-        ArrayList<Integer> ExpensesYear = getlistExpense(yearlyTable);
-        ArrayList<Integer> IncomeYear = getlistIncome(yearlyTable);
-
-        int middleExpense = (ExpensesYear.get(0) + ExpensesYear.get(1) + ExpensesYear.get(2)) / 3;
-        int middleIncome = (IncomeYear.get(0) + IncomeYear.get(1) + IncomeYear.get(2)) / 3;
-        System.out.println("Средний доход за 2021 год: " + middleIncome + " рублей");
-        System.out.println("Средний расход за 2021 год: " + middleExpense + " рублей");
-
+        this.year = year;
     }
 
-    public static int getBalance(String[] report) {
-        int income;
-        if (report[2].equals("true")) {
-            income = -Integer.parseInt(report[1]);
+    public void infoYear(String[] year) {
+        if (year != null) {
+            System.out.println("Информация по 2021 году");
+            int diffExp = 0;   //средний расход
+            int diffInc = 0;   // средний доход
+            int profit;  // прибыль
+            int exp = 0;
+            int inc = 0;
+            if (year != null) {
+                for (int i = 1; i < 3; i++) {
+                    String[] report = year[i].split(",");
+                    if (report[2].equals("true")) {
+                        exp = Integer.parseInt(report[1]);
+                    } else {
+                        inc = Integer.parseInt(report[1]);
+                    }
+                }
+                profit = inc - exp;
+                System.out.println("Прибыль за январь месяц составила: " + profit + " рублей");
+            }
+            diffExp += exp;
+            diffInc += inc;
+            for (int i = 3; i < 5; i++) {
+                String[] report = year[i].split(",");
+                if (report[2].equals("true")) {
+                    exp = Integer.parseInt(report[1]);
+                } else {
+                    inc = Integer.parseInt(report[1]);
+                }
+            }
+            profit = inc - exp;
+            System.out.println("Прибыль за февраль месяц составила: " + profit + " рублей");
+            diffExp += exp;
+            diffInc += inc;
+            for (int i = 5; i < 7; i++) {
+                String[] report = year[i].split(",");
+                if (report[2].equals("true")) {
+                    exp = Integer.parseInt(report[1]);
+
+                } else {
+                    inc = Integer.parseInt(report[1]);
+                }
+            }
+            profit = inc - exp;
+            System.out.println("Прибыль за март месяц составила: " + profit + " рублей");
+            diffExp += exp;
+            diffInc += inc;
+            diffExp /= 3;
+            diffInc /= 3;
+            System.out.println("Средний расход за все месяцы в году: " + diffExp + " рублей");
+            System.out.println("Средний доход за все месяцы в году: " + diffInc + " рублей");
         } else {
-            income = Integer.parseInt(report[1]);
+            System.out.println("Считайте годовой отчет");
         }
-        return income;
+    }
+
+    public static void compareMonthAndYear(String[] year, String[] jan, String[] feb, String[] mar) {
+
+        ArrayList<Integer> ExpensesMonths = new ArrayList<>();
+        ArrayList<Integer> IncomeMonths = new ArrayList<>();
+        ArrayList<Integer> ExpensesMonthsf = new ArrayList<>();
+        ArrayList<Integer> IncomeMonthsf = new ArrayList<>();
+        ArrayList<Integer> ExpensesMonthsm = new ArrayList<>();
+        ArrayList<Integer> IncomeMonthsm = new ArrayList<>();
+
+        for (int i = 1; i < jan.length; i++) {
+            String[] lines = jan[i].split(",");
+            if (lines[1].equals("TRUE")) {
+                int val1 = Integer.parseInt(lines[2]);
+                int val2 = Integer.parseInt(lines[3]);
+                int val = val1 * val2;
+                ExpensesMonths.add(val);
+            } else {
+                int amount1 = Integer.parseInt(lines[2]);
+                int amount2 = Integer.parseInt(lines[3]);
+                int amount = amount1 * amount2;
+                IncomeMonths.add(amount);
+            }
+        }
+
+        int janExpTot = 0;
+        for (int j = 0; j < ExpensesMonths.size(); j++) {
+            janExpTot += ExpensesMonths.get(j);
+        }
+        int janIncTot = 0;
+        for (int j = 0; j < IncomeMonths.size(); j++) {
+            janIncTot += IncomeMonths.get(j);
+        }
+
+        for (int i = 1; i < feb.length; i++) {
+            String[] lines = feb[i].split(",");
+            if (lines[1].equals("TRUE")) {
+                int val1 = Integer.parseInt(lines[2]);
+                int val2 = Integer.parseInt(lines[3]);
+                int val = val1 * val2;
+                ExpensesMonthsf.add(val);
+
+            } else {
+                int amount1 = Integer.parseInt(lines[2]);
+                int amount2 = Integer.parseInt(lines[3]);
+                int amount = amount1 * amount2;
+                IncomeMonthsf.add(amount);
+            }
+        }
+
+        int febExpTot = 0;
+        for (int j = 0; j < ExpensesMonthsf.size(); j++) {
+            febExpTot += ExpensesMonthsf.get(j);
+        }
+        int febIncTot = 0;
+        for (int j = 0; j < IncomeMonthsf.size(); j++) {
+            febIncTot += IncomeMonthsf.get(j);
+        }
+
+        for (int i = 1; i < mar.length; i++) {
+            String[] lines = mar[i].split(",");
+            if (lines[1].equals("TRUE")) {
+                int val1 = Integer.parseInt(lines[2]);
+                int val2 = Integer.parseInt(lines[3]);
+                int val = val1 * val2;
+                ExpensesMonthsm.add(val);
+
+            } else {
+                int amount1 = Integer.parseInt(lines[2]);
+                int amount2 = Integer.parseInt(lines[3]);
+                int amount = amount1 * amount2;
+                IncomeMonthsm.add(amount);
+            }
+        }
+
+        int marExpTot = 0;
+        for (int j = 0; j < ExpensesMonthsm.size(); j++) {
+            marExpTot += ExpensesMonthsm.get(j);
+        }
+        int marIncTot = 0;
+        for (int j = 0; j < IncomeMonthsm.size(); j++) {
+            marIncTot += IncomeMonthsm.get(j);
+        }
+
+        ArrayList<Integer> listExpenseyear = getlistExpense(year);
+        ArrayList<Integer> listIncome = getlistIncome(year);
+
+        if (janExpTot != listExpenseyear.get(0)) {
+            System.out.println("Расходы в январе не совпадают.");
+        }
+        if (febExpTot != listExpenseyear.get(1)) {
+            System.out.println("Расходы в феврале не совпадают.");
+        }
+        if (marExpTot != listExpenseyear.get(2)) {
+            System.out.println("Расходы в марте не совпадают.");
+        }
+        if (janIncTot != listIncome.get(0)) {
+            System.out.println("Доходы в январе не совпадают.");
+        }
+        if (febIncTot != listIncome.get(1)) {
+            System.out.println("Доходы в феврале не совпадают.");
+        }
+        if (marIncTot != listIncome.get(2)) {
+            System.out.println("Доходы в марте не совпадают.");
+        }
+        System.out.println("Операция успешно завершена.");
+
     }
 
     public static ArrayList<Integer> getlistExpense(String[] globalReport) {
@@ -73,24 +194,4 @@ public class YearlyReport {
         }
         return listIncome;
     }
-
-    public static void readYearlyReport(String[] yearlyTable) {
-        System.out.println("Информация по 2021 году");
-
-        for (int i = 1; i < yearlyTable.length; i++) {
-            String[] report = yearlyTable[i].split(",");
-            String isExpense;
-            String itemName = report[0];
-            if (report[2].equals("true")) {
-                isExpense = "Расходы - ";
-            } else {
-                isExpense = "Доходы - ";
-            }
-            String value = report[1];
-
-
-            System.out.println(itemName + ": " + isExpense + value);
-        }
-    }
 }
-

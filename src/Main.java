@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Main {
@@ -6,25 +5,31 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-       MonthlyReport monthlyReport = new MonthlyReport();
+        MonthlyReport monthlyReport = new MonthlyReport();
+        YearlyReport yearlyReport = new YearlyReport();
+
+        String[] january = null;
+        String[] february = null;
+        String[] march = null;
+        String[] year = null;
 
         while (true) {
             printMenue();
             int command = scanner.nextInt();
             if (command == 1) {
-                MonthlyReport.readMonthlyReport(monthlyReport.jan, monthlyReport.name1);
-                MonthlyReport.readMonthlyReport(monthlyReport.feb, monthlyReport.name2);
-                MonthlyReport.readMonthlyReport(monthlyReport.mar, monthlyReport.name3);
+                january = monthlyReport.readFileContents("resources/m.202101.csv");
+                february = monthlyReport.readFileContents("resources/m.202102.csv");
+                march = monthlyReport.readFileContents("resources/m.202103.csv");
             } else if (command == 2) {
-                YearlyReport.readYearlyReport(monthlyReport.year);
+                year = monthlyReport.readFileContents("resources/y.2021.csv");
             } else if (command == 3) {
-                MonthlyReport.compareMonthAndYear(monthlyReport.year, monthlyReport.jan, monthlyReport.feb, monthlyReport.mar);
+                YearlyReport.compareMonthAndYear(year, january, february, march);
             } else if (command == 4) {
-                MonthlyReport.getMonthlyReport(monthlyReport.jan, monthlyReport.name1);
-                MonthlyReport.getMonthlyReport(monthlyReport.feb, monthlyReport.name2);
-                MonthlyReport.getMonthlyReport(monthlyReport.mar, monthlyReport.name3);
+                monthlyReport.infoMonth(january, "Январь");
+                monthlyReport.infoMonth(february, "Февраль");
+                monthlyReport.infoMonth(march, "Март");
             } else if (command == 5) {
-                YearlyReport.infoYear(monthlyReport.year);
+                yearlyReport.infoYear(year);
             } else if (command == 100) {
                 System.out.println("Выход");
                 break;
@@ -43,6 +48,4 @@ public class Main {
         System.out.println("5 -  Вывести информацию о годовом отчёте");
         System.out.println("100 -  Завершить программу");
     }
-
-
 }
